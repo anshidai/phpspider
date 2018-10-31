@@ -10,7 +10,7 @@ $configs = array(
 	
 	//同时工作的爬虫任务数, 需要配合redis保存采集任务数据，供进程间共享使用
 	//tasknum默认值为1，即单进程任务爬取
-	'tasknum' => 10,
+	'tasknum' => 1,
 	
 	//爬虫爬取每个网页的时间间隔 单位：毫秒
 	'interval' => 10000,
@@ -32,14 +32,14 @@ $configs = array(
 	//table：导出db、sql数据表名
 	'export' => array(
 		'type' => 'db', 
-		'table' => 'pre_aizhan_data',
+		'table' => 'pre_domain_info',
     ),
 	
 	//true时显示调试信息 false时显示爬取面板
 	'log_show' => false, 
 	
 	//日志文件路径 默认 ./data/phpspider.log
-	'log_file' => '/home/libaoan/aizhan_spider_'.date('Y-m-d').'.log', 
+	//'log_file' => '/home/libaoan/aizhan_spider_'.date('Y-m-d').'.log', 
 	
 	//显示和记录的日志类型 info:普通 warn:警告 debug:调试 error:错误
 	'log_type' => 'error,info', 
@@ -72,100 +72,116 @@ $configs = array(
 		//网站标题
 		array(
 			'name' => 'title',
-			'selector' => '//*[@id="webpage_title"]',
+			'selector' => '//*[@id="title"]',
 			//'required' => true,
 		),
-        /*
-		//网站关键词
+
+        //注册人或公司
 		array(
-			'name' => 'keywords',
-			'selector' => '//*[@id="webpage_keywords"]',
+			'name' => 'reg_name',
+			'selector' => '//*[@id="icp_company"]/',
+			//'required' => true,
 		),
-		//网站描述
+		//注册邮箱
 		array(
-			'name' => 'description',
-			'selector' => '//*[@id="webpage_description"]',
+			'name' => 'reg_email',
+			'selector' => '//*[@id="whois_email"]/img',
+			//'required' => true,
 		),
-        */
-		
-		//alexa ippv
+		//公司性质
 		array(
-			'name' => 'alexa_ippv',
-			'selector' => '//*[@id="alexa_IPPV"]',
+			'name' => 'domain_proper',
+			'selector' => '//*[@id="icp_type"]/',
+			//'required' => true,
 		),
-		
-		//alexa pr
+		//备案信息
 		array(
-			'name' => 'alexa_pr',
-			'selector' => '//*[@id="main_pr"]/img',
+			'name' => 'domain_icp',
+			'selector' => '//*[@id="icp_icp"]/',
+			//'required' => true,
 		),
-		
-		//百度pc pr
+		//域名年龄
 		array(
-			'name' => 'baidu_pc_pr',
-			'selector' => '//*[@id="baidu_rank"]/img',
+			'name' => 'domain_age',
+			'selector' => '//*[@id="whois_created"]/',
+			//'required' => true,
 		),
-		
-		//百度移动pr
+		//审核时间
 		array(
-			'name' => 'baidu_m_pr',
-			'selector' => '//*[@id="baidu_mBR"]/img',
+			'name' => 'audit_date',
+			'selector' => '//*[@id="icp_passtime"]/',
+			//'required' => true,
 		),
-		
-		//百度索引量
+		//服务器ip
 		array(
-			'name' => 'baidu_index',
-			'selector' => '//*[@id="baiduindex"]',
+			'name' => 'servers_ip',
+			'selector' => '//*[@id="dns_info"]/',
+			//'required' => true,
 		),
-		
-		//百度预计来路
+
+
+		//百度pc访问ip
 		array(
-			'name' => 'baidu_ipv',
-			'selector' => '//*[@id="baidu_ip"]',
-		),
-		
-		//百度收录
-		array(
-			'name' => 'baidu_record',
-			'selector' => '//*[@id="baidu"]/a',
-		),
-		//百度反向链接
-		array(
-			'name' => 'baidu_out_link',
-			'selector' => '//*[@id="baidu_r"]/a',
+			'name' => 'baidu_pc_ip',
+			'selector' => '//*[@id="baidurank_ip"]/img',
 		),
 		
-		//谷歌收录
+		//百度移动访问量
 		array(
-			'name' => 'google_record',
-			'selector' => '//*[@id="google"]/a',
+			'name' => 'baidu_m_ip',
+			'selector' => '//*[@id="baidurank_m_ip"]/img',
 		),
-		//谷歌反向链接
+
+		//百度pc权重
 		array(
-			'name' => 'google_out_link',
-			'selector' => '//*[@id="google_r"]/a',
-		),
-		
-		//360收录
-		array(
-			'name' => 'so360_record',
-			'selector' => '//*[@id="360so"]/a',
-		),
-		//360反向链接
-		array(
-			'name' => 'so360_out_link',
-			'selector' => '//*[@id="360so_r"]/a',
+			'name' => 'baidu_pc_weight',
+			'selector' => '//*[@id="baidurank_br"]/img',
 		),
 		
-		//sogou收录
+		//百度移动权重
 		array(
-			'name' => 'sogou_record',
-			'selector' => '//*[@id="sogou"]/a',
+			'name' => 'baidu_m_weight',
+			'selector' => '//*[@id="baidurank_mbr"]/img',
 		),
-		//sogou反向链接
+		//搜狗权重
 		array(
-			'name' => 'sogou_out_link',
-			'selector' => '//*[@id="sogou_r"]/a',
+			'name' => 'sougou_weight',
+			'selector' => '//*[@id="sogou_pr"]/img',
+		),
+		//谷歌权重
+		array(
+			'name' => 'goole_weight',
+			'selector' => '//*[@id="google_pr"]/img',
+		),
+		
+		
+		//出站链接数
+		array(
+			'name' => 'out_link',
+			'selector' => '//*[@id="webpage_link_o"]',
+		),
+		
+		//首页链接数
+		array(
+			'name' => 'home_link',
+			'selector' => '//*[@id="webpage_link_i"]',
+		),
+		
+		//世界排名
+		array(
+			'name' => 'alexa_num',
+			'selector' => '//*[@id="alexa_rank"]/a',
+		),
+		//世界预估日均ip
+		array(
+			'name' => 'est_day_ip',
+			'selector' => '//*[@id="alexa_ip"]/a',
+		),
+		
+		//世界预估日均pv
+		array(
+			'name' => 'est_day_pv',
+			'selector' => '//*[@id="alexa_pv"]/a',
 		),
 		
 	),
@@ -175,7 +191,7 @@ $spider = new phpspider($configs);
 
 $spider->on_scan_page = function($page, $content, $phpspider)
 {
-    $phpspider->add_url('http://www.aizhan.com/cha/www.vzmz.com/');    
+    $phpspider->add_url('http://www.aizhan.com/cha/jupeixun.cn/');    
     
 };
 
@@ -238,12 +254,16 @@ $spider->on_extract_page = function($page, $data)
 	$data = array_map('trim', $data);
 	
 	$urlArr = explode('cha/', $page['url']);
+
+
+	//var_dump($data);exit;
+
 	if($urlArr) {
 		$url = end($urlArr);
-		$data['domain'] = $url;
-		$data['domain_md5'] = md5($url);
+		$data['domain'] = str_replace(array('https://', 'http://'), '', $url);
 	}
 	$data['adddate'] = date('Y-m-d H:i:s');
+	$data['editdate'] = date('Y-m-d H:i:s');
 	
 	//alexa预估流量
 	$data['alexa_ippv'] = str_replace('相关数据不充分，无法统计。', '', $data['alexa_ippv']);

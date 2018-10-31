@@ -4,13 +4,13 @@ $GLOBALS['config']['db'] = array(
     'host'  => 'localhost',
     'port'  => 3306,
     'user'  => 'root',
-    'pass'  => 'libin880212',
+    'pass'  => 'root',
     'name'  => 'caiji_aizhan',
 );
 
 $GLOBALS['config']['redis'] = array(
-    'host'      => '10.24.161.157',
-    'port'      => 7379,
+    'host'      => '127.0.0.1',
+    'port'      => 6379,
     'pass'      => '',
     'prefix'    => 'phpspider',
     'timeout'   => 30,

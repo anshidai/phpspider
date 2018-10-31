@@ -1,4 +1,4 @@
-域名基础信息
+﻿域名基础信息
 	网站标题
 	域名
 	注册人
@@ -19,7 +19,7 @@ CREATE TABLE `pre_domain_base` (
 	`reg_email` char(20) NOT NULL DEFAULT '' COMMENT '注册邮箱',
 	`domain_age` char(20) NOT NULL DEFAULT '' COMMENT '域名年龄',
 	`domain_proper` char(20) NOT NULL DEFAULT '' COMMENT '域名性质',
-	`domain_be` char(30) NOT NULL DEFAULT '' COMMENT '备案信息',
+	`domain_icp` char(30) NOT NULL DEFAULT '' COMMENT '备案信息',
 	`audit_date` char(20) NOT NULL DEFAULT '' COMMENT '审核时间',
 	`servers_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '服务器ip',
 	`adddate` datetime DEFAULT NULL COMMENT '添加时间',
@@ -44,16 +44,16 @@ CREATE TABLE `pre_domain_base` (
 CREATE TABLE `pre_domain_weight` (
 	`id` int(10) unsigned NOT NULL,
 	`domain_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '域名id',
-	`baidu_pc_uv` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '百度pc访问量',
-	`baidu_m_uv` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '百度移动访问量',
+	`baidu_pc_ip` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '百度pc访问量',
+	`baidu_m_ip` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '百度移动访问量',
 	`baidu_pc_weight` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '百度pc权重',
-	`baidu_m_weight`javascript:; tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '百度移动权重',
+	`baidu_m_weight` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '百度移动权重',
 	`sougou_weight` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '搜狗权重',
 	`goole_weight` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '谷歌权重',
 	`out_link` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '出站链接数',
 	`home_link` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '首页链接数',
 	`alexa_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '世界排名',
-	`est_day_uv` varchar(30) NOT NULL DEFAULT '' COMMENT '预估日均ip',
+	`est_day_ip` varchar(30) NOT NULL DEFAULT '' COMMENT '预估日均ip',
 	`est_day_pv` varchar(30) NOT NULL DEFAULT '' COMMENT '预估日均pv',
 	`adddate` datetime DEFAULT NULL COMMENT '添加时间',
 	`editdate` datetime DEFAULT NULL COMMENT '修改时间',
