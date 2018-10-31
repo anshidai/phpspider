@@ -10,15 +10,15 @@ $configs = array(
 	
 	//同时工作的爬虫任务数, 需要配合redis保存采集任务数据，供进程间共享使用
 	//tasknum默认值为1，即单进程任务爬取
-	'tasknum' => 5,
+	'tasknum' => 10,
 	
 	//爬虫爬取每个网页的时间间隔 单位：毫秒
-	'interval' => 5000,
+	'interval' => 10000,
 	
 	//爬虫爬取每个网页的超时时间 单位：秒 timeout默认值为5秒
 	
 	//代理设置
-	'proxy' => 'http://lba8610:9rg4cjuf@112.74.198.237:16816',
+	//'proxy' => 'http://lba8610:9rg4cjuf@112.74.198.237:16816',
 	
 	//爬虫爬取网页所使用的伪IP，用于破解防采集
 	//'client_ip' => '192.168.0.2', //单个ip
@@ -51,7 +51,7 @@ $configs = array(
 	
 	//定义爬虫的入口链接, 爬虫从这些链接开始爬取,同时这些链接也是监控爬虫所要监控的链接
 	'scan_urls' => array(
-		'http://www.aizhan.com/cha/www.aizhan.com/',
+		'http://www.aizhan.com/cha/www.baiyunpiaopiao.com/',
 	),
 	
 	//定义列表页url的规则
@@ -75,6 +75,7 @@ $configs = array(
 			'selector' => '//*[@id="webpage_title"]',
 			//'required' => true,
 		),
+        /*
 		//网站关键词
 		array(
 			'name' => 'keywords',
@@ -85,6 +86,7 @@ $configs = array(
 			'name' => 'description',
 			'selector' => '//*[@id="webpage_description"]',
 		),
+        */
 		
 		//alexa ippv
 		array(
@@ -170,6 +172,13 @@ $configs = array(
 );
 
 $spider = new phpspider($configs);
+
+$spider->on_scan_page = function($page, $content, $phpspider)
+{
+    $phpspider->add_url('http://www.aizhan.com/cha/www.vzmz.com/');    
+    
+};
+
 
 /**
 * 判断http状态码 判断当前网页是否被反爬虫
@@ -303,9 +312,13 @@ $spider->on_extract_field = function($fieldname, $data, $page)
 */
 $spider->on_insert_db = function($data, $page, $phpspider)
 {
-    if(!empty($data['domain']) && !empty($data['baidu_ipv'])) {
+    $data['domain'] = trim($data['domain']);
+    $data['title'] = trim($data['title']);
+    $data['baidu_ipv'] = trim($data['baidu_ipv']);
+    $data['alexa_ippv'] = trim($data['alexa_ippv']);
+    if(!empty($data['domain']) && !empty($data['title']) && (!empty($data['alexa_ippv']) || !empty($data['baidu_ipv']))) {
         if(!db::get_one("select id from ".phpspider::$export_table." where domain_md5='".md5($data['domain'])."'")) {
-            db::insert(phpspider::$export_table, $fields);    
+            db::insert(phpspider::$export_table, $data);    
         }        
     }
 };

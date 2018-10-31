@@ -9,7 +9,7 @@ $GLOBALS['config']['db'] = array(
 );
 
 $GLOBALS['config']['redis'] = array(
-    'host'      => '101.201.73.106',
+    'host'      => '10.24.161.157',
     'port'      => 7379,
     'pass'      => '',
     'prefix'    => 'phpspider',

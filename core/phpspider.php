@@ -1983,8 +1983,8 @@ class phpspider
         {
             // After this operation, 4,318 kB of additional disk space will be used.
             // Do you want to continue? [Y/n] 
-            //$msg = "发现Redis中有采集数据, 是否继续执行, 不继续则清空Redis数据重新采集\n";
-            $msg = "Found that the data of Redis, no continue will empty Redis data start again\n";
+            $msg = "发现Redis中有采集数据, 是否继续执行, 不继续则清空Redis数据重新采集\n";
+            //$msg = "Found that the data of Redis, no continue will empty Redis data start again\n";
             $msg .= "Do you want to continue? [Y/n]";
             fwrite(STDOUT, $msg);
             $arg = strtolower(trim(fgets(STDIN)));
