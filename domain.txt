@@ -10,22 +10,23 @@
 	审核时间
 	根父级
 	服务器ip
-CREATE TABLE `pre_domain_base` (
-	`id` int(10) unsigned NOT NULL,
-	`title` varchar(200) NOT NULL DEFAULT '' COMMENT '网站标题',
-	`domain` varchar(100) NOT NULL DEFAULT '' COMMENT '域名',
-	`pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级id',
-	`reg_name` char(50) NOT NULL DEFAULT '' COMMENT '注册人',
-	`reg_email` char(20) NOT NULL DEFAULT '' COMMENT '注册邮箱',
-	`domain_age` char(20) NOT NULL DEFAULT '' COMMENT '域名年龄',
-	`domain_proper` char(20) NOT NULL DEFAULT '' COMMENT '域名性质',
-	`domain_icp` char(30) NOT NULL DEFAULT '' COMMENT '备案信息',
-	`audit_date` char(20) NOT NULL DEFAULT '' COMMENT '审核时间',
-	`servers_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '服务器ip',
-	`adddate` datetime DEFAULT NULL COMMENT '添加时间',
-	`editdate` datetime DEFAULT NULL COMMENT '修改时间',
-	PRIMARY KEY (`id`),
-	KEY `idx_domain` (`domain`)
+CREATE TABLE `pre_domain_info` (
+  `id` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL DEFAULT '' COMMENT '网站标题',
+  `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '域名',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级id',
+  `sub_domain` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否子域名 1是',
+  `reg_name` char(50) NOT NULL DEFAULT '' COMMENT '注册人',
+  `reg_email` char(20) NOT NULL DEFAULT '' COMMENT '注册邮箱',
+  `domain_age` char(20) NOT NULL DEFAULT '' COMMENT '域名年龄',
+  `domain_proper` char(20) NOT NULL DEFAULT '' COMMENT '域名性质',
+  `domain_icp` char(30) NOT NULL DEFAULT '' COMMENT '备案信息',
+  `audit_date` char(20) NOT NULL DEFAULT '' COMMENT '审核时间',
+  `servers_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '服务器ip',
+  `adddate` datetime DEFAULT NULL COMMENT '添加时间',
+  `editdate` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_domain` (`domain`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='域名信息表';
 
 域名访问权重
